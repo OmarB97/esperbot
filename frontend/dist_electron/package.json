@@ -11,12 +11,14 @@
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "postuninstall": "electron-builder install-app-deps",
+    "firebase:deploy": "firebase deploy --only functions"
   },
   "main": "background.js",
   "dependencies": {
     "chai-as-promised": "^7.1.1",
     "core-js": "^3.4.4",
+    "firebase": "^7.6.1",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.3.0",
@@ -39,7 +41,7 @@
     "@vue/test-utils": "1.0.0-beta.29",
     "chai": "^4.1.2",
     "electron": "^6.0.0",
-    "eslint": "^5.16.0",
+    "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-vue": "^5.0.0",
