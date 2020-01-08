@@ -24,4 +24,7 @@ yarn-error.log*
 *.sw?
 
 #Electron-builder output
-/dist_electron
+dist_electron/
+
+#File Local History folder
+.history/
