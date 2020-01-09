@@ -24,5 +24,25 @@ module.exports = {
         'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'vue/html-indent': 'off',
+        'vue/html-self-closing': [
+            'error',
+            {
+                html: {
+                    void: 'always',
+                    normal: 'never',
+                    component: 'any',
+                },
+            },
+        ],
+        'vue/max-attributes-per-line': [
+            1,
+            {
+                singleline: 4,
+                multiline: {
+                    max: 1,
+                    allowFirstLine: true,
+                },
+            },
+        ],
     },
 };

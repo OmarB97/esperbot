@@ -10,4 +10,4 @@ const { GeoPoint, Timestamp } = firebase.firestore;
 export { GeoPoint, Timestamp };
 
 // if using Firebase JS SDK < 5.8.0
-DB.settings({ timestampsInSnapshots: true });
+// DB.settings({ timestampsInSnapshots: true });
