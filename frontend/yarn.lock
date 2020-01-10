@@ -1229,6 +1229,20 @@
   resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
   integrity sha512-7EJYyKTL7tFR8+gDbB6Wwz/arpGa0Mywk1TJbNzKzHtzbwVmY4HR9WqS5VV7dsBUKQmPNr192jHr/VpBluj/hg==
 
+"@types/vue-the-mask@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@types/vue-the-mask/-/vue-the-mask-0.11.0.tgz#ce7016234d251dcbb29193cc733b11c3b1f6160a"
+  integrity sha512-rYw+eoWNjy4r5RJJBXJFlR/A0mNpU4yoAKVHHBYmL4dMD0sSpLYhabsVKtO+m2OioH1XRFQNRsw7HPDqZPV2Xg==
+  dependencies:
+    vue ">=2.6.10"
+
+"@types/vuelidate@^0.7.10":
+  version "0.7.10"
+  resolved "https://registry.yarnpkg.com/@types/vuelidate/-/vuelidate-0.7.10.tgz#bb4f8cbe1e48c7fe3a294dd15dc0ac7a97b896dd"
+  integrity sha512-gQ82mjTxniDCZGBfCYnpfMnZOYB+e0dhIW5ftWDR5p5AwXLdsQEk2ByAqe40Gm7XA4OtQZKEIJ2xAgTdZCVz6A==
+  dependencies:
+    vue "^2.6.11"
+
 "@types/webpack-env@^1.13.9":
   version "1.15.0"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.15.0.tgz#bd9956d5044b1fb43e869a9ba9148862ff98d9fd"
@@ -11127,7 +11141,7 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vue-class-component@^7.0.2, vue-class-component@^7.1.0:
+vue-class-component@^7.0.1, vue-class-component@^7.0.2, vue-class-component@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.1.0.tgz#b33efcb10e17236d684f70b1e96f1946ec793e87"
   integrity sha512-G9152NzUkz0i0xTfhk0Afc8vzdXxDR1pfN4dTwE72cskkgJtdXfrKBkMfGvDuxUh35U500g5Ve4xL8PEGdWeHg==
@@ -11218,7 +11232,12 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@^2.6.10:
+vue-the-mask@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/vue-the-mask/-/vue-the-mask-0.11.1.tgz#91ee01008354ae57bccc79bb61b65f32d971d9d5"
+  integrity sha512-UquSfnSWejD0zAfcD+3jJ1chUAkOAyoxya9Lxh9acCRtrlmGcAIvd0cQYraWqKenbuZJUdum+S174atv2AuEHQ==
+
+vue@>=2.6.10, vue@^2.6.10, vue@^2.6.11:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
@@ -11229,6 +11248,19 @@ vuefire@^2.2.1:
   integrity sha512-Hgb4SJRJJd3+PZk+/YcqK3kjr28nRPHcODSaFRf731bnvdchjN7vDCeovRZNcXqRxLQ46lSyFzmcaZoqv5YdFQ==
   dependencies:
     "@posva/vuefire-core" "^2.3.0"
+
+vuelidate-property-decorators@^1.0.28:
+  version "1.0.28"
+  resolved "https://registry.yarnpkg.com/vuelidate-property-decorators/-/vuelidate-property-decorators-1.0.28.tgz#4d90e3be0291ca3703ce35fcb76028c673ba4618"
+  integrity sha512-ktb+9bYkTSmUFLi9g7gMGY035F5WvNnBQ/yl1U8MlclcFT65bYU/vBQ5HcZ4T1Ko6IL5wIPD4XJ+KkllKvgycg==
+  dependencies:
+    vue-class-component "^7.0.1"
+    vuelidate "^0.7.4"
+
+vuelidate@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/vuelidate/-/vuelidate-0.7.4.tgz#5a0e54be09ac0192f1aa3387d74b92e0945bf8aa"
+  integrity sha512-QHZWYOL325Zo+2K7VBNEJTZ496Kd8Z31p85aQJFldKudUUGBmgw4zu4ghl4CyqPwjRCmqZ9lDdx4FSdMnu4fGg==
 
 vuex@^3.1.2:
   version "3.1.2"

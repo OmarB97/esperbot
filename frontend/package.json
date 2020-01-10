@@ -16,6 +16,8 @@
     },
     "main": "background.js",
     "dependencies": {
+        "@types/vue-the-mask": "^0.11.0",
+        "@types/vuelidate": "^0.7.10",
         "chai-as-promised": "^7.1.1",
         "core-js": "^3.4.4",
         "electron-store": "^5.1.0",
@@ -25,7 +27,10 @@
         "vue-class-component": "^7.0.2",
         "vue-property-decorator": "^8.3.0",
         "vue-router": "^3.1.3",
+        "vue-the-mask": "^0.11.1",
         "vuefire": "^2.2.1",
+        "vuelidate": "^0.7.4",
+        "vuelidate-property-decorators": "^1.0.28",
         "vuex": "^3.1.2",
         "vuexfire": "^3.2.1"
     },

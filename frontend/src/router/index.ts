@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 import Activate from '@/views/Activate.vue';
 import Authenticate from '@/views/Authenticate.vue';
 import Home from '@/views/Home.vue';
-import About from '@/views/About.vue';
 import store from '@/store';
 
 Vue.use(VueRouter);
@@ -27,24 +26,19 @@ const routes = [
         },
     },
     {
-        path: '/authenticate',
-        name: 'authenticate',
-        component: Authenticate,
-    },
-    {
         path: '/activate',
         name: 'activate',
         component: Activate,
     },
     {
+        path: '/authenticate',
+        name: 'authenticate',
+        component: Authenticate,
+    },
+    {
         path: '/home',
         name: 'home',
         component: Home,
-    },
-    {
-        path: '/about',
-        name: 'about',
-        component: About,
     },
 ];
 

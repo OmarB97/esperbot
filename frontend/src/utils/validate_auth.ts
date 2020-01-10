@@ -1,4 +1,4 @@
-import { UserData, LicenseType } from '@/data/models/user_data';
+import { UserData, LicenseType } from '@/data/models/user_auth_data';
 import { firestore } from 'firebase';
 import { machineIdSync } from 'node-machine-id';
 

@@ -9,13 +9,15 @@
         "experimentalDecorators": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
         "sourceMap": true,
         "baseUrl": ".",
         "types": ["webpack-env", "mocha", "chai"],
         "paths": {
             "@/*": ["src/*"]
         },
-        "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+        "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+        "typeRoots": ["./node_modules/@types", "./types"]
     },
     "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
     "exclude": ["node_modules"]
