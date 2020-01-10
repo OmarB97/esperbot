@@ -11,18 +11,18 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: '/',
-        beforeEnter: (to: any, from: any, next: (path: string) => void) => {
+        /* eslint-disable  @typescript-eslint/no-explicit-any */
+        beforeEnter: async (to: any, from: any, next: (path: string) => void): Promise<any> => {
             if (!store.state.isActivated) {
-                console.log('not activated yet');
                 next('/activate');
-            } else if (store.state.isActivated) {
-                store.dispatch('authenticate').then(res => {
-                    if (res) {
-                        if (store.state.isAuthenticated) next('/home');
+            } else {
+                await store.dispatch('authenticate').then(res => {
+                    if (res && store.state.isAuthenticated) {
+                        next('/home');
+                    } else {
+                        next('/authenticate');
                     }
                 });
-            } else {
-                next('/authenticate');
             }
         },
     },

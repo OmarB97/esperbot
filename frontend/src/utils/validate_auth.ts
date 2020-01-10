@@ -1,5 +1,6 @@
 import { UserData, LicenseType } from '@/data/models/user_data';
 import { firestore } from 'firebase';
+import { machineIdSync } from 'node-machine-id';
 
 export default class ValidateAuth {
     static validateUser(
@@ -9,6 +10,7 @@ export default class ValidateAuth {
     ): boolean {
         const localEmail: string = userData.getEmail();
         const firestoreEmail: string = firestoreData['email'];
+
         if (localEmail !== firestoreEmail) {
             return false;
         }
@@ -18,6 +20,13 @@ export default class ValidateAuth {
         if (!isActive) {
             return false;
         }
+
+        // Check deviceId to make sure only one device is using license key
+        const deviceId: string = firestoreData['deviceId'];
+        if (deviceId !== machineIdSync()) {
+            return false;
+        }
+
         // check isRenting
         if (this.isRenting(docRef, firestoreData)) {
             return false;
