@@ -1,5 +1,5 @@
 import ElectronStore from 'electron-store';
-import { UserData } from '@/data/models/user_data';
+import { UserData } from '@/data/models/user_auth_data';
 
 export class DataStore {
     private store = new ElectronStore();
@@ -23,14 +23,8 @@ export class DataStore {
         return this;
     }
 
-    addUserData(
-        firstName: string,
-        lastName: string,
-        email: string,
-        licenseKey: string,
-        isActivated: boolean,
-    ): DataStore {
-        this.userData.setAll(firstName, lastName, email, licenseKey, isActivated);
+    addUserData(email: string, licenseKey: string, isActivated: boolean): DataStore {
+        this.userData.setAll(email, licenseKey, isActivated);
         return this.saveUserData();
     }
 
@@ -39,21 +33,7 @@ export class DataStore {
         return this.saveUserData();
     }
 
-    updateUserData(
-        firstName?: string,
-        lastName?: string,
-        email?: string,
-        licenseKey?: string,
-        isActivated?: boolean,
-    ): DataStore {
-        if (firstName !== undefined) {
-            this.userData.setFirstName(firstName);
-        }
-
-        if (lastName !== undefined) {
-            this.userData.setLastName(lastName);
-        }
-
+    updateUserData(email?: string, licenseKey?: string, isActivated?: boolean): DataStore {
         if (email !== undefined) {
             this.userData.setEmail(email);
         }

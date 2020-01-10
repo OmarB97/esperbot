@@ -35,10 +35,6 @@ export default new Vuex.Store({
                     }
                 });
             }
-            // if (this.state.isRegistered) {
-            //     // do FireStore authentication checks
-            // }
-            // return this.state.isRegistered;
         },
     },
     modules: {},
