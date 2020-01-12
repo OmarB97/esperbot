@@ -1,14 +1,75 @@
-import { UserData, LicenseType } from '@/data/models/user_auth_data';
+import { LicenseType } from '@/data/models/user_auth_data';
 import { firestore } from 'firebase';
+import { DB, Timestamp } from '@/firebase/db';
 import { machineIdSync } from 'node-machine-id';
+import { DataStore } from '@/storage/datastore';
 
 export default class ValidateAuth {
-    static validateUser(
-        userData: UserData,
+    static async activateUser(dataStore: DataStore, formData): Promise<boolean> {
+        const docRef: firestore.DocumentReference = DB.collection('users').doc(formData.licenseKey);
+        const res = await docRef.get().then(doc => {
+            if (doc.exists) {
+                const docData = doc.data() as firestore.DocumentData;
+                if (formData.email !== docData['email']) {
+                    return false;
+                }
+
+                const activationDBData = {
+                    isActive: true,
+                    deviceId: machineIdSync(),
+                    licenseActivationDate: Timestamp.fromMillis(Date.now()),
+                };
+
+                const licenseType = docData['licenseType'];
+                if (licenseType === LicenseType.Renewal) {
+                    const licenseExpirationDate = new Date();
+                    licenseExpirationDate.setDate(licenseExpirationDate.getDate() + 30); // expires 30 days after activation date
+                    Object.assign(activationDBData, {
+                        licenseExpirationDate: Timestamp.fromDate(licenseExpirationDate),
+                    });
+                }
+                const updateRes = docRef
+                    .update(activationDBData)
+                    .then(() => {
+                        dataStore.addUserAuthData(formData.email, formData.licenseKey, true);
+                        Object.assign(docData, activationDBData);
+                        if (this.validateUser(dataStore, docRef, docData)) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    })
+                    .catch(err => {
+                        return false;
+                    });
+                return updateRes;
+            } else {
+                return false;
+            }
+        });
+        return res;
+    }
+
+    static async authenticateUser(dataStore: DataStore): Promise<boolean> {
+        const docRef: firestore.DocumentReference = DB.collection('users').doc(dataStore.getLicenseKey());
+        const res = await docRef.get().then(doc => {
+            if (doc.exists) {
+                const docData = doc.data() as firestore.DocumentData;
+                if (this.validateUser(dataStore, docRef, docData)) {
+                    return true;
+                }
+            }
+            return false;
+        });
+        return res;
+    }
+
+    private static validateUser(
+        dataStore: DataStore,
         docRef: firestore.DocumentReference,
         firestoreData: firestore.DocumentData,
     ): boolean {
-        const localEmail: string = userData.getEmail();
+        const localEmail: string = dataStore.getEmail();
         const firestoreEmail: string = firestoreData['email'];
 
         if (localEmail !== firestoreEmail) {
@@ -87,10 +148,11 @@ export default class ValidateAuth {
 
     private static isRenewalValid(firestoreData: firestore.DocumentData): boolean {
         // check licenseExpirationDate
-        const licenseExpirationDate: number = (firestoreData[
+        const licenseExpirationDateMs: number = (firestoreData[
             'licenseExpirationDate'
         ] as firestore.Timestamp).toMillis();
-        if (Date.now() >= licenseExpirationDate) {
+
+        if (Date.now() >= licenseExpirationDateMs) {
             return false;
         }
         return true;
@@ -98,10 +160,11 @@ export default class ValidateAuth {
 
     private static isRentalValid(docRef: firestore.DocumentReference, firestoreData: firestore.DocumentData): boolean {
         // check licenseExpirationDate
-        const licenseExpirationDate: number = (firestoreData[
+        const licenseExpirationDateMs: number = (firestoreData[
             'licenseExpirationDate'
         ] as firestore.Timestamp).toMillis();
-        if (Date.now() >= licenseExpirationDate) {
+
+        if (Date.now() >= licenseExpirationDateMs) {
             docRef.delete();
             return false;
         }

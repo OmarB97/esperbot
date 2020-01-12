@@ -11,7 +11,7 @@ const routes = [
     {
         path: '/',
         /* eslint-disable  @typescript-eslint/no-explicit-any */
-        beforeEnter: async (to: any, from: any, next: (path: string) => void): Promise<any> => {
+        beforeEnter: async (to: any, from: any, next: (path: string) => void): Promise<void> => {
             if (!store.state.isActivated) {
                 next('/activate');
             } else {

@@ -2,38 +2,48 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { vuexfireMutations } from 'vuexfire';
 import { DataStore } from '@/storage/datastore';
-import { DB } from '@/firebase/db';
-import { firestore } from 'firebase';
 import ValidateAuth from '@/utils/validate_auth';
 
 Vue.use(Vuex);
-const dataStore: DataStore = new DataStore().getUserData();
+const dataStore: DataStore = new DataStore();
 
 export default new Vuex.Store({
     state: {
-        isActivated: dataStore.userData.getIsActivated(),
+        isActivated: dataStore.getIsActivated(),
         isAuthenticated: false,
     },
     mutations: {
         ...vuexfireMutations,
-        SET_IS_AUTHENTICATED(state, isAuthenticated) {
+        SET_IS_ACTIVATED(state, isActivated): void {
+            state.isActivated = isActivated;
+        },
+        SET_IS_AUTHENTICATED(state, isAuthenticated): void {
             state.isAuthenticated = isAuthenticated;
         },
     },
     actions: {
-        async authenticate({ commit }) {
+        async activate({ commit }, formData): Promise<boolean> {
+            return ValidateAuth.activateUser(dataStore, formData).then(res => {
+                if (res) {
+                    commit('SET_IS_ACTIVATED', true);
+                    commit('SET_IS_AUTHENTICATED', true);
+                    return res;
+                }
+                return false;
+            });
+        },
+
+        async authenticate({ commit }): Promise<boolean> {
             if (this.state.isActivated) {
-                const docRef: firestore.DocumentReference = DB.collection('users').doc(
-                    dataStore.userData.getLicenseKey(),
-                );
-                await docRef.get().then(doc => {
-                    if (doc.exists) {
-                        const docData = doc.data() as firestore.DocumentData;
-                        if (ValidateAuth.validateUser(dataStore.userData, docRef, docData)) {
-                            commit('SET_IS_AUTHENTICATED', true);
-                        }
+                return ValidateAuth.authenticateUser(dataStore).then(res => {
+                    if (res) {
+                        commit('SET_IS_AUTHENTICATED', true);
+                        return res;
                     }
+                    return false;
                 });
+            } else {
+                return false;
             }
         },
     },

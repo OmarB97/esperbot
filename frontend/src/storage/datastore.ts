@@ -1,51 +1,62 @@
 import ElectronStore from 'electron-store';
-import { UserData } from '@/data/models/user_auth_data';
+import { UserAuthData } from '@/data/models/user_auth_data';
 
 export class DataStore {
     private store = new ElectronStore();
-    userData: UserData;
+    userAuthData: UserAuthData;
     constructor() {
-        // Intialize with userData or empty object
-        this.userData = this.store.get('userData') || new UserData();
+        this.userAuthData = new UserAuthData();
+        // Intialize with userAuthData or empty object
+        if (this.store.has('userAuthData')) {
+            const data = this.store.get('userAuthData');
+
+            this.userAuthData.setAll(data.email, data.licenseKey, data.isActivated);
+        }
     }
 
-    saveUserData(): DataStore {
-        // Save userData to JSON file
-        this.store.set('userData', this.userData);
+    saveUserAuthData = (): DataStore => {
+        // Save userAuthData to JSON file
+        this.store.set('userAuthData', this.userAuthData);
 
         // Returning "this" allows method chaining
         return this;
-    }
+    };
 
-    getUserData(): DataStore {
-        // Set object's userData to userData in JSON file
-        this.userData = this.store.get('userData') || this.userData;
-        return this;
-    }
+    addUserAuthData = (email: string, licenseKey: string, isActivated: boolean): DataStore => {
+        this.userAuthData.setAll(email, licenseKey, isActivated);
+        return this.saveUserAuthData();
+    };
 
-    addUserData(email: string, licenseKey: string, isActivated: boolean): DataStore {
-        this.userData.setAll(email, licenseKey, isActivated);
-        return this.saveUserData();
-    }
+    deleteUserAuthData = (): DataStore => {
+        this.userAuthData.clearUserAuthData();
+        return this.saveUserAuthData();
+    };
 
-    deleteUserData(): DataStore {
-        this.userData.clearUserData();
-        return this.saveUserData();
-    }
-
-    updateUserData(email?: string, licenseKey?: string, isActivated?: boolean): DataStore {
+    updateUserAuthData = (email?: string, licenseKey?: string, isActivated?: boolean): DataStore => {
         if (email !== undefined) {
-            this.userData.setEmail(email);
+            this.userAuthData.setEmail(email);
         }
 
         if (licenseKey !== undefined) {
-            this.userData.setLicenseKey(licenseKey);
+            this.userAuthData.setLicenseKey(licenseKey);
         }
 
         if (isActivated !== undefined) {
-            this.userData.setIsActivated(isActivated);
+            this.userAuthData.setIsActivated(isActivated);
         }
 
-        return this.saveUserData();
-    }
+        return this.saveUserAuthData();
+    };
+
+    getEmail = (): string => {
+        return this.userAuthData.getEmail();
+    };
+
+    getLicenseKey = (): string => {
+        return this.userAuthData.getLicenseKey();
+    };
+
+    getIsActivated = (): boolean => {
+        return this.userAuthData.getIsActivated();
+    };
 }

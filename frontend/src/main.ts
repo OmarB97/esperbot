@@ -4,12 +4,11 @@ import router from './router';
 import store from './store';
 import '@/assets/css/tailwind.css';
 import { firestorePlugin } from 'vuefire';
-import { Component } from 'vue-property-decorator';
+import Vuelidate from 'vuelidate';
+import './registerComponentHooks';
 
 Vue.config.productionTip = false;
-Vue.use(firestorePlugin);
-
-Component.registerHooks(['validations']);
+Vue.use(firestorePlugin, Vuelidate);
 
 new Vue({
     router,
