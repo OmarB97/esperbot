@@ -9,7 +9,6 @@ export class DataStore {
         // Intialize with userAuthData or empty object
         if (this.store.has('userAuthData')) {
             const data = this.store.get('userAuthData');
-
             this.userAuthData.setAll(data.email, data.licenseKey, data.isActivated);
         }
     }

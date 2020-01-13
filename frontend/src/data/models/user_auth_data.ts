@@ -52,3 +52,16 @@ export const enum LicenseType {
     Beta = 'BETA',
     Rental = 'RENTAL',
 }
+
+export const enum AUTH_ERROR_CODE {
+    NO_ERROR = 0,
+    INVALID_EMAIL = 1,
+    INVALID_KEY = 2,
+    NOT_ACTIVE = 3,
+    INVALID_MACHINE_ID = 4,
+    RENTING = 5,
+    EXPIRED_RENEWAL_KEY = 6,
+    EXPIRED_RENTAL_KEY = 7,
+    INVALID_LICENSE_TYPE = 8,
+    UNKNOWN = 9,
+}

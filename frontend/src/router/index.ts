@@ -11,15 +11,17 @@ const routes = [
     {
         path: '/',
         /* eslint-disable  @typescript-eslint/no-explicit-any */
-        beforeEnter: async (to: any, from: any, next: (path: string) => void): Promise<void> => {
+        beforeEnter: async (to, from, next): Promise<void> => {
             if (!store.state.isActivated) {
                 next('/activate');
             } else {
                 await store.dispatch('authenticate').then(res => {
-                    if (res && store.state.isAuthenticated) {
+                    if (res.res && store.state.isAuthenticated) {
                         next('/home');
                     } else {
-                        next('/authenticate');
+                        next({ name: 'authenticate', params: { authErr: res.err } });
+                        // next({ path: '/authenticate', name: 'authenticate', params: res.err });
+                        // next('/authenticate');
                     }
                 });
             }
@@ -34,6 +36,7 @@ const routes = [
         path: '/authenticate',
         name: 'authenticate',
         component: Authenticate,
+        props: true,
     },
     {
         path: '/home',
