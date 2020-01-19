@@ -41,7 +41,13 @@ export default new Vuex.Store({
             });
         },
 
-        async authenticate({ commit }): Promise<{ res: boolean; err: AUTH_ERROR_CODE }> {
+        async authenticate(
+            { commit },
+            formData?: { email: string; licenseKey: string },
+        ): Promise<{ res: boolean; err: AUTH_ERROR_CODE }> {
+            if (formData !== undefined) {
+                dataStore.updateUserAuthData(formData.email, formData.licenseKey);
+            }
             return ValidateAuth.authenticateUser(dataStore).then(res => {
                 if (res.res) {
                     commit('SET_IS_AUTHENTICATED', res.res);

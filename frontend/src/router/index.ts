@@ -20,8 +20,6 @@ const routes = [
                         next('/home');
                     } else {
                         next({ name: 'authenticate', params: { authErr: res.err } });
-                        // next({ path: '/authenticate', name: 'authenticate', params: res.err });
-                        // next('/authenticate');
                     }
                 });
             }

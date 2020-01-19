@@ -90,7 +90,6 @@ export default class ValidateAuth {
     ): { res: boolean; err: AUTH_ERROR_CODE; data: firestore.DocumentData } {
         const localEmail: string = dataStore.getEmail();
         const firestoreEmail: string = firestoreData['email'];
-
         if (localEmail !== firestoreEmail) {
             return {
                 res: false,
