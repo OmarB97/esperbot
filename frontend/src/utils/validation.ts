@@ -1,4 +1,5 @@
-import { required, email, alpha_num } from 'vee-validate/dist/rules'; /* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/camelcase */
+import { required, email, alpha_num } from 'vee-validate/dist/rules';
 import { extend } from 'vee-validate';
 
 extend('required', {
